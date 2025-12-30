@@ -3,293 +3,2122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEBSITE KELAS 8B - GRATISAN</title>
+    <title>Website Kelas 8B - VIIB</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    
     <style>
+        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
         }
-        
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ff9e00;
+            --gradient: linear-gradient(135deg, #4361ee, #3a0ca3, #7209b7);
+            --gradient-accent: linear-gradient(135deg, #f72585, #b5179e);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.2);
+            --radius: 15px;
+            --radius-lg: 25px;
+            --transition: all 0.3s ease;
+        }
+
         body {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background: #121212;
+            color: #f8f9fa;
+        }
+
+        /* ===== LOGIN MODAL ===== */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: var(--transition);
+        }
+
+        .login-container {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            transform: translateY(-20px);
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        body.dark-mode .login-container {
+            background: var(--dark);
             color: white;
         }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .header {
-            background: rgba(0,0,0,0.7);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        h1 {
+
+        .login-logo {
             font-size: 3rem;
-            margin-bottom: 10px;
-            color: #ffd700;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
-        
-        .highlight {
-            color: #ffd700;
-            font-size: 2.5rem;
-            text-shadow: 3px 3px 0 #000;
+
+        .login-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        
-        .siswa-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
+
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 2rem;
         }
-        
-        .siswa-card {
-            background: rgba(255,255,255,0.9);
-            color: #333;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+        body.dark-mode .login-subtitle {
+            color: #aaa;
         }
-        
-        .admin-btn {
-            display: inline-block;
-            background: #ffd700;
-            color: #000;
-            padding: 15px 30px;
-            margin: 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: transform 0.3s;
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
-        
-        .admin-btn:hover {
-            transform: scale(1.1);
+
+        .input-group {
+            position: relative;
         }
-        
-        .login-box {
-            background: rgba(0,0,0,0.8);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 30px;
+
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #ddd;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .login-input {
+            background: #333;
+            border-color: #555;
+            color: white;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .login-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .login-error {
+            color: #ff4757;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
             display: none;
         }
-        
-        .login-box.show {
+
+        .login-error.show {
             display: block;
-            animation: slideDown 0.5s;
+            animation: shake 0.5s ease;
         }
-        
-        input {
-            width: 80%;
-            padding: 12px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
+
+        .login-hint {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
         }
-        
-        button {
-            background: #4ecdc4;
+
+        body.dark-mode .login-hint {
+            color: #aaa;
+        }
+
+        .admin-badge {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .admin-badge.show {
+            display: flex;
+            animation: slideInRight 0.5s ease;
+        }
+
+        .logout-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-accent);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 10px;
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
+
+        .logout-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .logout-btn.show {
+            display: flex;
+            animation: slideInRight 0.5s ease;
+        }
+
+        .admin-panel {
+            position: fixed;
+            top: 4rem;
+            right: 1rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 1.5rem;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 200px;
+        }
+
+        body.dark-mode .admin-panel {
+            background: var(--dark);
+            border: 1px solid #333;
+        }
+
+        .admin-panel.show {
+            display: flex;
+            animation: fadeInDown 0.3s ease;
+        }
+
+        .admin-panel h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .admin-feature:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        body.dark-mode .admin-feature:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideUp {
             to { transform: translateY(0); opacity: 1; }
         }
-        
-        .emoji {
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* ===== BACKGROUND ANIMATION ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(67, 97, 238, 0.1) 0%, rgba(67, 97, 238, 0) 70%);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+            background: radial-gradient(circle, rgba(247, 37, 133, 0.1) 0%, rgba(247, 37, 133, 0) 70%);
+        }
+
+        .circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+            background: radial-gradient(circle, rgba(76, 201, 240, 0.1) 0%, rgba(76, 201, 240, 0) 70%);
+        }
+
+        .circle:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 20%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(180deg); }
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(33, 37, 41, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .logo i {
             font-size: 2rem;
         }
-        
-        .watermark {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            color: rgba(255,255,255,0.5);
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        body.dark-mode .nav-link {
+            color: var(--light);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-extra {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .theme-toggle,
+        .menu-toggle {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover,
+        .menu-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: var(--shadow);
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 100px 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .bg-dark {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        body.dark-mode .bg-dark {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        body.dark-mode .section-subtitle {
+            color: #aaa;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .title-gradient {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode h2 {
+            color: var(--light);
+        }
+
+        .highlight {
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--accent);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        body.dark-mode .subtitle {
+            color: #aaa;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        body.dark-mode .description {
+            color: #ccc;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .image-frame {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
+        }
+
+        .image-frame:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        #wallImage {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .image-frame:hover .image-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        body.dark-mode .stat-card {
+            background: var(--dark);
+            border-color: #333;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .stat-card h3 {
+            color: var(--light);
+        }
+
+        /* ===== TAB KHUSUS UNTUK FILTER ===== */
+        .tab-container {
+            margin-bottom: 3rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== PENGURUS SECTION ===== */
+        .pengurus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .pengurus-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            padding-bottom: 1.5rem;
+        }
+
+        body.dark-mode .pengurus-card {
+            background: var(--dark);
+            border: 1px solid #333;
+        }
+
+        .pengurus-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pengurus-img {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .pengurus-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .pengurus-card:hover .pengurus-img img {
+            transform: scale(1.1);
+        }
+
+        .pengurus-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pengurus-card h3 {
+            margin: 1rem 0 0.5rem;
+            color: var(--dark);
+            font-size: 1.3rem;
+        }
+
+        body.dark-mode .pengurus-card h3 {
+            color: var(--light);
+        }
+
+        .pengurus-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode .pengurus-card p {
+            color: #aaa;
+        }
+
+        .pengurus-contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== 32 SISWA SECTION ===== */
+        .siswa-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        #searchSiswa {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        #searchSiswa:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-siswa {
+            padding: 0.6rem 1.2rem;
+            background: transparent;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-siswa:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-siswa.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .siswa-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .siswa-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        body.dark-mode .siswa-card {
+            background: var(--dark);
+            border: 1px solid #333;
+        }
+
+        .siswa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .siswa-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary);
+        }
+
+        .siswa-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .siswa-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+
+        body.dark-mode .siswa-card h3 {
+            color: var(--light);
+        }
+
+        .siswa-card p {
             font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .siswa-card p {
+            color: #aaa;
+        }
+
+        .siswa-hobby span {
+            display: inline-block;
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+        }
+
+        .siswa-counter {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: var(--radius);
+            margin-top: 2rem;
+        }
+
+        .siswa-counter p {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ===== GALERI SECTION ===== */
+        .galeri-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .galeri-filter {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .galeri-filter:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .galeri-filter.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--shadow);
+        }
+
+        .galeri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .galeri-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 250px;
+            cursor: pointer;
+        }
+
+        .galeri-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .galeri-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .galeri-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .galeri-item:hover .galeri-overlay {
+            transform: translateY(0);
+        }
+
+        /* ===== KONTAK SECTION ===== */
+        .kontak-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .kontak-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .kontak-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .kontak-item {
+            background: var(--dark);
+            border: 1px solid #333;
+        }
+
+        .kontak-item:hover {
+            transform: translateX(10px);
+        }
+
+        .kontak-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            width: 50px;
+        }
+
+        .kontak-item h4 {
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        body.dark-mode .kontak-item h4 {
+            color: var(--light);
+        }
+
+        .kontak-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode .kontak-item p {
+            color: #aaa;
+        }
+
+        .kontak-form {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        body.dark-mode .kontak-form {
+            background: var(--dark);
+            border: 1px solid #333;
+        }
+
+        .kontak-form h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        body.dark-mode .kontak-form h3 {
+            color: var(--light);
+        }
+
+        .kontak-form input,
+        .kontak-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .kontak-form input:focus,
+        .kontak-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: #aaa;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-note {
+            font-style: italic;
+            color: var(--success) !important;
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .description {
+                max-width: 100%;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .kontak-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+            
+            body.dark-mode .nav-menu {
+                background: var(--dark);
+            }
+            
+            .nav-menu.show {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .siswa-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .admin-badge,
+            .logout-btn {
+                top: 5rem;
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 80px 1rem;
+            }
+            
+            .title-gradient {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .galeri-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>💥 KELAS <span class="highlight">8B</span> 💥</h1>
-            <p class="emoji">🎓 📚 ✨ 🏆 🎉</p>
-            <p>WEBSITE GRATISAN TANPA BAYAR!</p>
-            <p>MTS 1 LAMSEL | WKWKWK 55555 HAHAHA</p>
-        </div>
-        
-        <!-- Siswa List -->
-        <div class="siswa-grid" id="siswaList">
-            <!-- JavaScript akan generate -->
-        </div>
-        
-        <!-- Tombol Admin (fake) -->
-        <a href="#" class="admin-btn" onclick="showLogin()">
-            🔐 LOGIN ADMIN (FAKE)
-        </a>
-        
-        <!-- Login Box -->
-        <div class="login-box" id="loginBox">
-            <h3>LOGIN BUATAN (Gak Nyambung Database)</h3>
-            <input type="text" id="username" placeholder="Username" value="najaraja12">
-            <input type="password" id="password" placeholder="Password" value="samsung a12">
-            <button onclick="fakeLogin()">🎮 LOGIN GAME OVER</button>
-            <p style="margin-top: 15px; color: #ffd700;">
-                🤫 Ini cuma demo, gak ada database!
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <div class="login-logo">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h2 class="login-title"> Login anak 8b</h2>
+            <p class="login-subtitle">Website Kelas 8B - VIIIB</p>
+            
+            <form class="login-form" id="loginForm">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="login-input" id="username" placeholder="Username" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="login-input" id="password" placeholder="Password" required>
+                </div>
+                
+                <div class="login-error" id="loginError">
+                    <i class="fas fa-exclamation-circle"></i> Username atau password salah!
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            
+            <p class="login-hint">
+                <i class="fas fa-info-circle"></i> Username: <strong>cuma angota kelas</strong> | Password: <strong>cuma anggota kelas</strong>
             </p>
         </div>
+    </div>
+
+    <!-- Admin Badge (shown after login) -->
+    <div class="admin-badge" id="adminBadge">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin Mode</span>
+    </div>
+
+    <!-- Logout Button -->
+    <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <h4><i class="fas fa-cog"></i> Admin Panel</h4>
         
-        <!-- Fitur -->
-        <div style="margin-top: 40px; background: rgba(0,0,0,0.7); padding: 20px; border-radius: 15px;">
-            <h2>🆓 FITUR GRATISAN:</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
-                    <h3>✅ No Database</h3>
-                    <p>Gak perlu MySQL</p>
+        <div class="admin-feature" id="editContentBtn">
+            <i class="fas fa-edit"></i>
+            <span>Edit Konten</span>
+        </div>
+        
+        <div class="admin-feature" id="addPhotoBtn">
+            <i class="fas fa-image"></i>
+            <span>Tambah Foto</span>
+        </div>
+        
+        <div class="admin-feature" id="addStudentBtn">
+            <i class="fas fa-user-plus"></i>
+            <span>Tambah Siswa</span>
+        </div>
+        
+        <div class="admin-feature" id="viewStatsBtn">
+            <i class="fas fa-chart-bar"></i>
+            <span>Lihat Statistik</span>
+        </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Memuat Website Kelas 8B...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-school"></i>
+                <span>8B | VII LIB</span>
+            </a>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                <a href="#struktur" class="nav-link"><i class="fas fa-users"></i> Struktur</a>
+                <a href="#siswa" class="nav-link"><i class="fas fa-user-graduate"></i> 32 Siswa</a>
+                <a href="#galeri" class="nav-link"><i class="fas fa-images"></i> Galeri</a>
+                <a href="#kontak" class="nav-link"><i class="fas fa-address-book"></i> Kontak</a>
+            </div>
+            <div class="nav-extra">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1 class="title-gradient">SELAMAT DATANG</h1>
+                    <h2>DI WEBSITE KELAS <span class="highlight">8B</span></h2>
+                    <p class="subtitle">VIIIB - mts1lamsel</p>
+                    <p class="description">Website resmi untuk informasi, struktur kelas, dan kegiatan kami.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" id="exploreBtn">
+                            <i class="fas fa-rocket"></i> Jelajahi Sekarang
+                        </button>
+                        <button class="btn-secondary" id="meetAllBtn">
+                            <i class="fas fa-user-friends"></i> Kenal 32 Teman
+                        </button>
+                    </div>
                 </div>
-                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
-                    <h3>✅ No PHP</h3>
-                    <p>Cuma HTML + CSS + JS</p>
+                <div class="hero-image">
+                    <div class="image-frame">
+                        <img src="umi.png" alt="Foto Walli Kelas 8B" id="wallImage">
+                        <div class=KELAS 8B"image-overlay">
+                            <h3>KELAS 8B</h3>
+                            <p>32 Siswa | Tahun Ajaran 2025/2026</p>
+                        </div>
+                    </div>
                 </div>
-                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
-                    <h3>✅ No Hosting Bayar</h3>
-                    <p>Gratis 100%</p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="stats">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>32</h3>
+                    <p>Total Siswa</p>
                 </div>
-                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
-                    <h3>✅ No Ribet</h3>
-                    <p>Copy-Paste langsung jalan</p>
+                <div class="stat-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>7</h3>
+                    <p>Pengurus Inti</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>15+</h3>
+                    <p>Kegiatan</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>8</h3>
+                    <p>Prestasi</p>
                 </div>
             </div>
         </div>
-        
-        <!-- Download Button -->
-        <div style="margin-top: 30px;">
-            <button onclick="downloadCode()" style="background: #ff6b6b; padding: 15px 40px; font-size: 1.2rem;">
-                ⬇️ DOWNLOAD FILE INI
-            </button>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                Save as: <code>index.html</code> lalu upload ke hosting gratis!
-            </p>
-        </div>
-    </div>
-    
-    <div class="watermark">
-        Made with 😂 by 8B Crew | JJJJJJ 55555 HAHAHA
-    </div>
+    </section>
 
-    <script>
-        // Data siswa lokal (gak perlu database)
-        const siswa8B = [
-            "ADITAMA", "ANANDA", "BAGUS", "CITRA", "DANI", 
-            "ELSA", "FAJAR", "GINA", "HADI", "INDAH",
-            "JOKO", "KARTIKA", "LUTFI", "MEGA", "NOVAL",
-            "OKTA", "PUTRI", "QORY", "RAMA", "SARI",
-            "TEGUH", "ULFA", "VINA", "WAHYU", "XENA",
-            "YUDI", "ZAHRA", "AGUNG", "BINTANG", "CAHAYA",
-            "DONI", "ERNA"
-        ];
-        
-        // Generate siswa list
-        function generateSiswaList() {
-            const container = document.getElementById('siswaList');
-            container.innerHTML = '';
+    <!-- Struktur Kelas Section -->
+    <section id="struktur" class="section bg-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">STRUKTUR PENGURUS KELAS</h2>
+                <p class="section-subtitle">Tim yang membuat kelas 8B lebih baik</p>
+            </div>
             
-            siswa8B.forEach((nama, index) => {
-                const card = document.createElement('div');
-                card.className = 'siswa-card';
-                card.innerHTML = `
-                    <div style="font-size: 2rem;">👤</div>
-                    <h4>${nama}</h4>
-                    <small>Absen: ${index + 1}</small>
-                `;
-                container.appendChild(card);
-            });
+            <!-- Tab Khusus untuk Filter Pengurus -->
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="all">
+                        <i class="fas fa-users"></i> Semua Pengurus
+                    </button>
+                    <button class="tab-btn" data-tab="int">
+                        <i class="fas fa-crown"></i> Inti
+                    </button>
+                    <button class="tab-btn" data-tab="sekben">
+                        <i class="fas fa-file-invoice-dollar"></i> Sekretaris & Bendahara
+                    </button>
+                    <button class="tab-btn" data-tab="koordinator">
+                        <i class="fas fa-tasks"></i> Koordinator
+                    </button>
+                </div>
+                
+                <!-- Tab Content - All -->
+                <div class="tab-content active" id="tab-all">
+                    <div class="pengurus-grid">
+                        <!-- Wali Kelas -->
+                        <div class="pengurus-card" data-role="wali">
+                            <div class="pengurus-img">
+                                <img src="umi.png" alt="Wali Kelas">
+                                <div class="pengurus-badge">Wali Kelas</div>
+                            </div>
+                            <h3>Ibu/Bapak umi laelatul khoeriyah</h3>
+                            <p>Guru Mata Pelajaran bahasa arab </p>
+                            <div class="pengurus-contact">
+                            "></div></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Ketua Kelas -->
+                        <div class="pengurus-card" data-role="ketua">
+                            <div class="pengurus-img">
+                                <img src="https://images.unsplash.com/photo-150700169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Ketua Kelas">
+                                <div class="pengurus-badge">Ketua</div>
+                            </div>
+                            <h3>[Nama Ketua]</h3>
+                            <p>Pemimpin Kelas 8B</p>
+                            <div class="pengurus-contact">
+                                <span><i class="fas fa-phone"></i> 08XX-XXXX-XXXX</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Wakil Ketua -->
+                        <div class="pengurus-card" data-role="wakil">
+                            <div class="pengurus-img">
+                                <img src="https://images.unsplash.com/photo-1591064344-4c6ce005-128b-4708-ba4f-3efc65001e2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wakil Ketua">
+                                <div class="pengurus-badge">Wakil</div>
+                            </div>
+                            <h3>[Nama Wakil]</h3>
+                            <p>Wakil Ketua Kelas</p>
+                            <div class="pengurus-contact">
+                                <span><i class="fas fa-phone"></i> 08XX-XXXX-XXXX</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Sekretaris -->
+                        <div class="pengurus-card" data-role="sekretaris">
+                            <div class="pengurus-img">
+                                <img src="https://images.unsplash.com/photo-153452875-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sekretaris">
+                                <div class="pengurus-badge">Sekretaris</div>
+                            </div>
+                            <h3>[Nama Sekretaris]</h3>
+                            <p>Penanggung Jawab Administrasi</p>
+                        </div>
+                        
+                        <!-- Bendahara -->
+                        <div class="pengurus-card" data-role="bendahara">
+                            <div class="pengurus-img">
+                                <img src="https://images.unsplash.com/photo-1517805240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Bendahara">
+                                <div class="pengurus-badge">Bendahara</div>
+                            </div>
+                            <h3>[Nama Bendahara]</h3>
+                            <p>Pengelola Keuangan Kelas</p>
+                        </div>
+                        
+                        <!-- Koordinator Kebersihan -->
+                        <div class="pengurus-card" data-role="kebersihan">
+                            <div class="pengurus-img">
+                                <img src="https://images.unsplash.com/pto-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Koordinator Kebersihan">
+                                <div class="pengurus-badge">Kebersihan</div>
+                            </div>
+                            <h3>[Nama Koordinator]</h3>
+                            <p>Penanggung Jawab Kebersihan</p>
+                        </div>
+                        
+                        <!-- Koordinator Agama -->
+                        <div class="pengurus-card" data-role="agama">
+                            <div class="pengurus-img">
+                                <img src="https://images.unsplash.com/pho-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Koordinator Agama">
+                                <div class="pengurus-badge">Agama</div>
+                            </div>
+                            <h3>[Nama Koordinator]</h3>
+                            <p>Penanggung Jawab Kegiatan Keagamaan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 32 Siswa Section -->
+    <section id="siswa" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">32 SISWA KELAS 8B</h2>
+                <p class="section-subtitle">Kenali semua anggota kelas kita</p>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="siswa-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchSiswa" placeholder="Cari nama siswa...">
+                </div>
+                <div class="filter-options">
+                    <button class="filter-siswa active" data-filter="all">Semua</button>
+                    <button class="filter-siswa" data-filter="laki">Laki-laki</button>
+                    <button class="filter-siswa" data-filter="perempuan">Perempuan</button>
+                </div>
+            </div>
+            
+            <!-- 32 Siswa Grid -->
+            <div class="siswa-grid" id="siswaGrid">
+                <!-- Siswa 1-8 -->
+                <div class="siswa-card" data-gender="laki">
+                    <div class="siswa-img">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Siswa 1">
+                    </div>
+                    <h3>ADITAMA</h3>
+                    <p>No. Absen: 1</p>
+                    <div class="siswa-hobby">
+                        <span><i class="fas fa-futbol"></i> Sepak Bola</span>
+                    </div>
+                </div>
+                
+                <div class="siswa-card" data-gender="perempuan">
+                    <div class="siswa-img">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Siswa 2">
+                    </div>
+                    <h3>ANANDA</h3>
+                    <p>No. Absen: 2</p>
+                    <div class="siswa-hobby">
+                        <span><i class="fas fa-music"></i> Musik</span>
+                    </div>
+                </div>
+                
+                <!-- Siswa lainnya... -->
+            </div>
+            
+            <!-- Counter -->
+            <div class="siswa-counter">
+                <p>Total: <span id="totalSiswa">32</span> Siswa</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Section -->
+    <section id="galeri" class="section bg-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">GALERI KEGIATAN</h2>
+                <p class="section-subtitle">Momen berharga kelas 8B</p>
+            </div>
+            
+            <!-- Filter Galeri -->
+            <div class="galeri-filters">
+                <button class="galeri-filter active" data-filter="all">Semua</button>
+                <button class="galeri-filter" data-filter="pop">Pop</button>
+                <button class="galeri-filter" data-filter="dingin">Dingin</button>
+                <button class="galeri-filter" data-filter="krom">Krom</button>
+                <button class="galeri-filter" data-filter="film">Film</button>
+                <button class="galeri-filter" data-filter="h&p">H&P</button>
+            </div>
+            
+            <!-- Galeri Grid -->
+            <div class="galeri-grid">
+                <!-- Galeri items... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section id="kontak" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">KONTAK & INFORMASI</h2>
+                <p class="section-subtitle">Hubungi kami untuk informasi lebih lanjut</p>
+            </div>
+            
+            <div class="kontak-grid">
+                <div class="kontak-info">
+                    <!-- Kontak items... -->
+                </div>
+                
+                <div class="kontak-form">
+                    <h3>Kirim Pesan</h3>
+                    <form id="messageForm">
+                        <!-- Form inputs... -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-school"></i>
+                    <h3>KELAS 8B</h3>
+                    <p>VII LIB - Sekolah Kita</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#struktur">Struktur</a>
+                    <a href="#siswa">Siswa</a>
+                    <a href="#galeri">Galeri</a>
+                    <a href="#kontak">Kontak</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Website Kelas 8B. Dibuat dengan <i class="fas fa-heart"></i> oleh siswa 8B.</p>
+                <p class="footer-note">"Bersama kita bisa, bersama kita kuat!"</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // ===== LOGIN SYSTEM =====
+        const loginModal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        const adminBadge = document.getElementById('adminBadge');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const CORRECT_USERNAME = 'najaraja12';
+        const CORRECT_PASSWORD = 'samsung a12';
+
+        // Check if already logged in
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            loginModal.style.display = 'none';
+            adminBadge.classList.add('show');
+            logoutBtn.classList.add('show');
+        } else {
+            loginModal.style.display = 'flex';
         }
-        
-        // Fake login function
-        function showLogin() {
-            document.getElementById('loginBox').classList.add('show');
-        }
-        
-        function fakeLogin() {
+
+        // Login form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            if(username === 'najaraja12' && password === 'samsung a12') {
-                alert('🎮 WKWKWK LOGIN BERHASIL!\n\nTapi boong... ini cuma demo!\n\nGak ada database, gak ada backend!\n\nJJJJJJ 5555 HAHAHA!');
+            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+                // Successful login
+                localStorage.setItem('isLoggedIn', 'true');
+                loginError.classList.remove('show');
+                loginModal.style.opacity = '0';
                 
-                // Ganti semua jadi admin mode
-                document.body.style.background = 'linear-gradient(135deg, #000, #ffd700)';
-                document.querySelector('h1').innerHTML = '💎 ADMIN MODE 💎';
-                
-                // Tambah efek
-                const efek = document.createElement('div');
-                efek.innerHTML = '<h1 style="color:#ffd700; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:5rem; z-index:9999;">ADMIN MODE ON!</h1>';
-                document.body.appendChild(efek);
-                
-                setTimeout(() => efek.remove(), 2000);
-            } else {
-                alert('❌ SALAH! Coba: username=najaraja12 password=samsung a12\n\nWKWKWK 5555!');
-            }
-        }
-        
-        // Download code function
-        function downloadCode() {
-            const element = document.createElement('a');
-            const file = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
-            element.href = URL.createObjectURL(file);
-            element.download = 'kelas8b_gratisan.html';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-            
-            alert('✅ File berhasil didownload!\n\nSekarang upload ke:\n1. 000webhost.com (gratis)\n2. Google Drive + publish\n3. Infinityfree.net\n\nJJJJJ 5555!');
-        }
-        
-        // Easter egg
-        document.addEventListener('keydown', (e) => {
-            if(e.key === '5') {
-                document.body.style.background = 'linear-gradient(135deg, #f00, #0f0, #00f)';
                 setTimeout(() => {
-                    document.body.style.background = 'linear-gradient(135deg, #ff6b6b, #4ecdc4)';
+                    loginModal.style.display = 'none';
+                    adminBadge.classList.add('show');
+                    logoutBtn.classList.add('show');
+                    
+                    // Show welcome notification
+                    showNotification('Login berhasil! Selamat datang Admin.', 'success');
+                }, 500);
+            } else {
+                // Failed login
+                loginError.classList.add('show');
+                document.getElementById('password').value = '';
+                
+                // Shake animation
+                loginForm.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    loginForm.style.animation = '';
                 }, 500);
             }
         });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            adminBadge.classList.remove('show');
+            logoutBtn.classList.remove('show');
+            adminPanel.classList.remove('show');
+            
+            // Show login modal again
+            loginModal.style.display = 'flex';
+            setTimeout(() => {
+                loginModal.style.opacity = '1';
+            }, 10);
+            
+            showNotification('Anda telah logout.', 'info');
+        });
+
+        // Toggle admin panel
+        adminBadge.addEventListener('click', function() {
+            adminPanel.classList.toggle('show');
+        });
+
+        // Admin features
+        document.getElementById('editContentBtn').addEventListener('click', function() {
+            showNotification('Fitur Edit Konten akan segera hadir!', 'info');
+            adminPanel.classList.remove('show');
+        });
+
+        document.getElementById('addPhotoBtn').addEventListener('click', function() {
+            showNotification('Fitur Tambah Foto akan segera hadir!', 'info');
+            adminPanel.classList.remove('show');
+        });
+
+        document.getElementById('addStudentBtn').addEventListener('click', function() {
+            showNotification('Fitur Tambah Siswa akan segera hadir!', 'info');
+            adminPanel.classList.remove('show');
+        });
+
+        document.getElementById('viewStatsBtn').addEventListener('click', function() {
+            showNotification('Fitur Statistik akan segera hadir!', 'info');
+            adminPanel.classList.remove('show');
+        });
+
+        // Close admin panel when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!adminBadge.contains(e.target) && !adminPanel.contains(e.target)) {
+                adminPanel.classList.remove('show');
+            }
+        });
+
+        // ===== NOTIFICATION SYSTEM =====
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Style the notification
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#2ecc71' : '#3498db'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow-lg);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                z-index: 9999;
+                animation: slideInRight 0.3s ease;
+            `;
+            
+            // Add to body
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // ===== LOADING SCREEN =====
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // ===== DARK MODE TOGGLE =====
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            themeToggle.querySelector('i').className = 'fas fa-sun';
+        }
+
+        // ===== MOBILE MENU TOGGLE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.querySelector('.nav-menu');
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+
+        // ===== TAB SYSTEM =====
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
         
-        // Initialize
-        generateSiswaList();
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to current button and content
+                this.classList.add('active');
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+            });
+        });
+
+        // ===== BACK TO TOP =====
+        const backToTop = document.getElementById('backToTop');
         
-        // Auto efek keren
-        let warnaIndex = 0;
-        const warna = ['#ff6b6b', '#4ecdc4', '#ffd700', '#95e1d3', '#f08a5d'];
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
         
-        setInterval(() => {
-            document.querySelector('h1').style.color = warna[warnaIndex];
-            warnaIndex = (warnaIndex + 1) % warna.length;
-        }, 1000);
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+L for login (if not logged in)
+            if (e.ctrlKey && e.key === 'l' && localStorage.getItem('isLoggedIn') !== 'true') {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+                setTimeout(() => {
+                    loginModal.style.opacity = '1';
+                }, 10);
+            }
+            
+            // Escape to logout (if logged in)
+            if (e.key === 'Escape' && localStorage.getItem('isLoggedIn') === 'true') {
+                logoutBtn.click();
+            }
+        });
+
+        // ===== ADMIN SECRET FEATURES =====
+        // Double click on logo to show admin panel
+        document.querySelector('.logo').addEventListener('dblclick', function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                adminPanel.classList.add('show');
+                showNotification('Panel Admin dibuka!', 'success');
+            }
+        });
+
+        // Secret konami code for admin access
+        let konamiCode = [];
+        const secretCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
         
-        console.log('WEBSITE KELAS 8B - GRATISAN MODE ON!');
-        console.log('hahahah');
-        console.log('Password buat login: samsung a12 (fake)');
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.key);
+            if (konamiCode.length > secretCode.length) {
+                konamiCode.shift();
+            }
+            
+            if (JSON.stringify(konamiCode) === JSON.stringify(secretCode)) {
+                if (localStorage.getItem('isLoggedIn') !== 'true') {
+                    showNotification('Cheat code activated! Auto-login enabled.', 'success');
+                    // Auto login
+                    localStorage.setItem('isLoggedIn', 'true');
+                    loginModal.style.display = 'none';
+                    adminBadge.classList.add('show');
+                    logoutBtn.classList.add('show');
+                } else {
+                    showNotification('Cheat code activated! Admin mode already active.', 'info');
+                }
+                konamiCode = [];
+            }
+        });
+
+        // ===== INITIALIZE =====
+        // Show welcome message if just logged in
+        setTimeout(() => {
+            if (localStorage.getItem('isLoggedIn') === 'true' && 
+                !sessionStorage.getItem('welcomeShown')) {
+                showNotification('Selamat datang Admin! Klik badge admin untuk panel kontrol.', 'success');
+                sessionStorage.setItem('welcomeShown', 'true');
+            }
+        }, 2000);
     </script>
 </body>
 </html>
